@@ -1,11 +1,119 @@
 ---
-import Welcome from '../components/Welcome.astro';
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
+<Layout title="50th Lebanese Chess Championship">
+  <Header />
+  <main>
+    <div class="hero min-h-[600px]" style="background-image: url(/chess-background.jpg);">
+      <div class="hero-overlay bg-opacity-60"></div>
+      <div class="hero-content text-center text-neutral-content">
+        <div class="max-w-lg">
+          <h1 class="hero-title mb-5">50th Lebanese Chess Championship</h1>
+          <p class="mb-5 text-lg font-medium [text-shadow:1px_1px_3px_rgba(0,0,0,0.7)]">
+            Celebrating 50 years of the Lebanese National Championship, hosted by Keshmat Chess Center. 
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container mx-auto p-8 space-y-16">
+      <section id="watch" class="text-center">
+        <h2 class="section-title mb-6">View The Live Games</h2>
+        <p class="text-lg mb-6">
+          Join us at Keshmat Chess Center in Dekwaneh to watch the tournament and listen to live commentary by expert players. 
+        </p>
+        
+        <div class="contact-item max-w-lg mx-auto">
+          <div class="text-center">
+            <p class="font-semibold text-gray-800 mb-2">
+              <strong>Dates:</strong> 21 June 2025 - 2 July 2025
+            </p>
+            <p class="font-semibold text-gray-800">
+              <strong>Time:</strong> 5:30 PM - 10:30 PM Daily 
+            </p>
+          </div>
+        </div>
 
-<Layout>
-	<Welcome />
+        <div id='map' class="w-full h-96 mt-8 rounded-lg shadow-xl border-2 border-primary/20"></div>
+        <a 
+          href="https://maps.app.goo.gl/J72QDKmBHZdzq1WW8"
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn btn-primary mt-4"
+        >
+          Get Directions
+        </a>
+      </section>
+
+      <script>
+        import maplibregl from 'maplibre-gl';
+
+        const keshmatLocation: [number, number] = [35.54685505128131, 33.8665]; // [lng, lat]
+
+        const map = new maplibregl.Map({
+          container: 'map',
+          style: 'https://tiles.openfreemap.org/styles/bright',
+          center: keshmatLocation,
+          zoom: 15
+        });
+
+        new maplibregl.Marker()
+          .setLngLat(keshmatLocation)
+          .addTo(map);
+
+        map.addControl(new maplibregl.NavigationControl());
+      </script>
+
+      <section>
+        <h3 class="section-title text-center mb-6">Live Top Boards</h3>
+        <div class="aspect-w-4 aspect-h-3 relative">
+          <iframe src="https://lichess.org/embed/broadcast/fide-world-rapidblitz-team-championships-2024--rapid-matches-1-10/G1YjiG7j" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>
+        </div>
+        <p class="text-center mt-4 text-sm text-gray-600 font-medium">
+          Live positions from the top board are broadcast daily. 
+        </p>
+      </section>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <section id="history" class="sponsor-card p-8 chess-decoration flex flex-col">
+            <h2 class="subsection-title mb-4">A Rich History</h2>
+            <p class="text-gray-700 leading-relaxed flex-grow">
+              In 2025, the Lebanese Chess Federation will celebrate the 50th anniversary of the Lebanese National Championship. We have created a small museum of the past 50 years of Lebanese Chess to mark this occasion.
+              Explore our digital archive of historical moments.
+            </p>
+            <a href="/history" class="btn btn-primary mt-4 self-end">View History Gallery</a>
+        </section>
+        
+        <section id="about" class="sponsor-card p-8 chess-decoration flex flex-col">
+            <h2 class="subsection-title mb-4">About Keshmat</h2>
+            <p class="text-gray-700 leading-relaxed flex-grow">
+              Keshmat Chess Center has been operating since 2021 and has hosted the Lebanese Chess Championship for the past 4 years. Our staff includes experienced international arbiters, trainers, and former Lebanese champions. 
+            </p>
+            <a href="/about" class="btn btn-primary mt-4 self-end">Learn More</a>
+        </section>
+      </div>
+
+      <section class="text-center">
+        <h2 class="section-title mb-8">Our Valued Sponsors</h2>
+        <div class="flex justify-center items-center gap-8 flex-wrap">
+          <div class="sponsor-card p-4 rounded-lg">
+            <img src="https://placehold.co/150x60" alt="Sponsor 1" class="h-16" />
+          </div>
+          <div class="sponsor-card p-4 rounded-lg">
+            <img src="https://placehold.co/150x60" alt="Sponsor 2" class="h-16" />
+          </div>
+          <div class="sponsor-card p-4 rounded-lg">
+            <img src="https://placehold.co/150x60" alt="Sponsor 3" class="h-16" />
+          </div>
+          <div class="sponsor-card p-4 rounded-lg">
+            <img src="https://placehold.co/150x60" alt="Sponsor 4" class="h-16" />
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
 </Layout>

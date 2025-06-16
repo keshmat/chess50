@@ -1,0 +1,86 @@
+---
+// src/pages/about.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="About Keshmat Chess Center">
+  <Header />
+  <main class="container mx-auto p-8">
+    <section class="text-center">
+      <h1 class="text-4xl font-bold mb-8">About Keshmat</h1>
+      <div class="flex justify-center mb-8">
+        <img src="/think.jpg" alt="Keshmat Chess Center Members" class="w-full max-w-2xl rounded-lg shadow-xl"/>
+      </div>
+    </section>
+    
+    <section class="max-w-3xl mx-auto mb-16 text-center space-y-6">
+      <p class="text-lg text-gray-800 leading-loose">
+        Keshmat Chess Center has been operating since 2021 and hosts weekly practice tournaments and lectures as well as monthly FIDE rated tournaments. Come practice, learn and improve your chess skills!
+      </p>
+      <p class="text-lg text-gray-800 leading-loose">
+        We have operated the Lebanese Chess Championship for the past 4 years. Our staff includes experienced international arbiters, trainers, and former Lebanese champions. We are dedicated to promoting chess at all levels, from beginners to advanced players, and providing a welcoming environment for the chess community in Lebanon.
+      </p>
+    </section>
+
+    <section id="location" class="text-center">
+      <h2 class="text-3xl font-bold mb-6">Visit Us</h2>
+      <p class="text-lg mb-6">
+        Come and visit us! We are located in Dekwaneh. You can find us on the map below.
+      </p>
+      
+      <div class="contact-item max-w-lg mx-auto mb-8">
+        <div class="text-center">
+          <p class="font-semibold text-gray-800 mb-2">
+            <strong>Dates & Times for the Championship:</strong> 21 June 2025 - 2 July 2025, 5:30 PM - 10:30 PM Daily
+          </p>
+          <p class="font-semibold text-gray-800">
+            <strong>Regular Hours:</strong> Open Wednesday, Thursday and Saturday from 5:00 PM to 9:00 PM
+          </p>
+        </div>
+      </div>
+
+      <div id='map' class="w-full h-96 mt-8 rounded-lg shadow-xl border-2 border-primary/20"></div>
+      <a 
+        href="https://maps.app.goo.gl/J72QDKmBHZdzq1WW8"
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="btn btn-primary mt-4"
+      >
+        Get Directions
+      </a>
+    </section>
+
+    <section id="gallery" class="text-center mt-16">
+      <h2 class="text-3xl font-bold mb-8">Gallery</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {[1, 2, 3, 4, 5, 6].map(num => (
+          <div class="overflow-hidden rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+            <img src={`/keshmat-${num}.jpg`} alt={`Keshmat Gallery Image ${num}`} class="w-full h-64 object-cover" />
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    import maplibregl from 'maplibre-gl';
+
+    const keshmatLocation: [number, number] = [35.54685505128131, 33.8665]; // [lng, lat]
+
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://tiles.openfreemap.org/styles/bright',
+      center: keshmatLocation,
+      zoom: 15
+    });
+
+    new maplibregl.Marker()
+      .setLngLat(keshmatLocation)
+      .addTo(map);
+
+    map.addControl(new maplibregl.NavigationControl());
+  </script>
+
+  <Footer />
+</Layout> 

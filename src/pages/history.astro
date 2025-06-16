@@ -1,0 +1,90 @@
+---
+// src/pages/history.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const imageFiles = [
+  'Abi Shaaya and Rafic 001.jpg',
+  'Abi-Fares et Abi-Chaya chmpions du BCC 001.jpg',
+  'Ahamd Najjar Batalaan llimara al thaletha 001.jpg',
+  'Ahmad Nahhar 20000LL 001.jpg',
+  'Ahmad najjar-Moussa 001.jpg',
+  'Akkari champion to BCC 001.jpg',
+  'AlHajj-Said 001.jpg',
+  'Aouwal dawra Sarih w Kasparov 001.jpg',
+  'Assaf Champion du Liban 001.jpg',
+  'Bons Resultats des joueurs libanais 001.jpg',
+  'Chacun son (Immortelle) 001.jpg',
+  'Championnats Asiatiques 001.jpg',
+  'Chmapionnat Du Liban-Les meilleurs moments 001.jpg',
+  'Chmapionnat du Liban-La meilleure combinaison 001.jpg',
+  'Dagher yabka 001.jpg',
+  "Dubai-Meilleures parties de l'equipe libanaise 001.jpg",
+  'Eid Chmapion du Liban 1998 001.jpg',
+  'Haitham Omar Youtawaj 001.jpg',
+  'Khairallah Champion du Liban 2002 001.jpg',
+  "Kouatly a l'Interzonal 001.jpg",
+  'Le 6eme Championnat Arabe 001.jpg',
+  'Le Championnat Mediterneen 2003 001.jpg',
+  'Le Championnat de Beyrouth 001.jpg',
+  'Le Championnat du Liban 1994 001.jpg',
+  'Le Championnat mediteraneen 001.jpg',
+  'Le secret de Tchelebi 001.jpg',
+  'Le tournoi Open du BCC 001.jpg',
+  'Les Olympiades de Salonique-Loheac-Amoun medaille de bronze 001.jpg',
+  'Liban-Roumanie 001.jpg',
+  'Mohamad Succar 001.jpg',
+  'Omar Champion du Liban 2001 001.jpg',
+  'Parties du Scheveningen 001.jpg',
+  'Succar yousallem shahadat 001.jpg',
+  'Sursock batal lubnan 001.jpg',
+  'URSS vs Liban 001.jpg',
+  'with Succar 001.jpg'
+].map(file => ({
+  src: `/assets/archive/${encodeURIComponent(file)}`,
+  alt: file.replace(/ 001\.jpg$/, '').replace(/_/g, ' ')
+}));
+---
+<Layout title="History of Lebanese Chess">
+  <Header />
+  <main class="container mx-auto p-8">
+    <section id="history-gallery" class="text-center">
+      <h1 class="text-4xl font-bold mb-4">A Pictorial History of Lebanese Chess</h1>
+      <p class="text-lg mb-8 max-w-3xl mx-auto">
+        These images, scanned from newspaper clippings and personal collections, offer a glimpse into the rich history of chess in Lebanon. They feature past champions, pivotal tournaments, and moments that have shaped the national chess scene. This collection is a tribute to the players and organizers who have contributed to the legacy of Lebanese chess over the past 50 years.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {imageFiles.map((image, index) => (
+          <div class="card card-compact bg-base-100 shadow-xl overflow-hidden group">
+            <figure 
+              class="aspect-square relative cursor-pointer"
+              onclick={`modal_${index}.showModal()`}
+            >
+              <img src={image.src} alt={image.alt} class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110" />
+              <div class="absolute inset-0 bg-transparent group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="white" viewBox="0 0 32 32" class="opacity-0 group-hover:opacity-75 transition-opacity">
+                  <path d=" M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z "/>
+                </svg>
+              </div>
+            </figure>
+            <dialog id={`modal_${index}`} class="modal">
+              <div class="modal-box w-11/12 max-w-5xl">
+                <img src={image.src} alt={image.alt} class="w-full" />
+                <h3 class="font-bold text-lg mt-4">{image.alt}</h3>
+                <div class="modal-action">
+                  <form method="dialog">
+                    <button class="btn">Close</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
+          </div>
+        ))}
+      </div>
+      <p class="mt-12 text-lg">
+        This is just a small selection of our collection. We invite you to visit Keshmat Chess Center to see more historical scans, artifacts, and books from the history of Lebanese chess.
+      </p>
+    </section>
+  </main>
+  <Footer />
+</Layout> 
