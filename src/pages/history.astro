@@ -1,77 +1,193 @@
 ---
 // src/pages/history.astro
-import { Image, Picture } from 'astro:assets';
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import { Image, Picture } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/archive/*.jpg'
+  "/src/assets/archive/*.jpg"
 );
 
 const imageFiles = await Promise.all(
   Object.entries(images).map(async ([src, importer]) => {
     const { default: image } = await importer();
-    const fileName = src.split('/').pop()?.replace(/ 001\.jpg$/, '') || '';
+    const fileName =
+      src
+        .split("/")
+        .pop()
+        ?.replace(/ 001\.jpg$/, "") || "";
     return {
       src: image,
-      alt: fileName.replace(/_/g, ' ')
+      alt: fileName.replace(/_/g, " "),
     };
   })
 );
+
+// Champions data
+const champions = [
+  { year: 1953, name: "Charles Salameh" },
+  { year: 1955, name: "Georges Malias" },
+  { year: 1956, name: "Edgar Chalabi" },
+  { year: 1957, name: "Serge Majarov" },
+  { year: 1958, name: "Edgar Chalabi" },
+  { year: 1959, name: "Carlos Maalouf" },
+  { year: 1960, name: "Serge Majarov" },
+  { year: 1961, name: "Fares Farah" },
+  { year: 1962, name: "Serge Majarov" },
+  { year: 1964, name: "Charles Salameh" },
+  { year: 1965, name: "Jack Bedros" },
+  { year: 1966, name: "Maurice Gabriel" },
+  { year: 1967, name: "Antoine Ghaleb" },
+  { year: 1968, name: "Charles Salameh" },
+  { year: 1970, name: "Samir Sursock" },
+  { year: 1971, name: "Samir Sursock" },
+  { year: 1972, name: "Andre Tarazi" },
+  { year: 1974, name: "Safwan Akkari" },
+  { year: 1992, name: "Samir Sursock" },
+  { year: 1993, name: "Mounir Tawbeh" },
+  { year: 1994, name: "Fadi Eid" },
+  { year: 1995, name: "Antoine Kassis" },
+  { year: 1996, name: "Ahmad Najjar" },
+  { year: 1997, name: "Mansour Assaf" },
+  { year: 1998, name: "Fadi Eid" },
+  { year: 1999, name: "Ahmad Najjar" },
+  { year: 2000, name: "AbdelAziz ElMahmoud" },
+  { year: 2001, name: "Haitham Omar" },
+  { year: 2002, name: "Faisal Khairallah" },
+  { year: 2003, name: "Faisal Khairallah" },
+  { year: 2004, name: "Faisal Khairallah" },
+  { year: 2005, name: "Knarik Mouradian" },
+  { year: 2006, name: "Fadi Eid" },
+  { year: 2007, name: "Ahmad Najjar" },
+  { year: 2008, name: "Faisal Khairallah" },
+  { year: 2009, name: "Fadi Eid" },
+  { year: 2010, name: "Amr ElJawish (Youngest)" },
+  { year: 2011, name: "Faisal Khairallah" },
+  { year: 2012, name: "Faisal Khairallah" },
+  { year: 2013, name: "Ibrahim Chahrour" },
+  { year: 2014, name: "Faisal Khairallah" },
+  { year: 2015, name: "Amr ElJawish" },
+  { year: 2016, name: "Faisal Khairallah" },
+  { year: 2017, name: "Amr ElJawish" },
+  { year: 2018, name: "Antoine Kassis" },
+  { year: 2020, name: "Ahmad Najjar" },
+  { year: 2022, name: "Amr ElJawish" },
+  { year: 2023, name: "Ahmad Najjar" },
+  { year: 2024, name: "Akram Khoder" },
+];
 ---
+
 <Layout title="History of Lebanese Chess">
   <Header />
   <main class="container mx-auto p-8">
+    <section id="history-intro" class="text-center mb-16">
+      <h1 class="text-4xl font-bold mb-4">History of Lebanese Chess</h1>
+      <p class="text-lg mb-8 max-w-4xl mx-auto">
+        Discover the rich legacy of chess in Lebanon from 1953 to the present
+        day. This page chronicles the development of Lebanese chess through our
+        national champions and historical photographs that capture the spirit
+        and evolution of the game in our country.
+      </p>
+    </section>
+
+    <section id="champions-table" class="mb-16">
+      <h2 class="text-3xl font-bold text-center mb-8">
+        Lebanese National Chess Champions
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full max-w-4xl mx-auto">
+          <thead>
+            <tr>
+              <th class="text-center">Year</th>
+              <th class="text-center">Champion</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              champions.map((champion) => (
+                <tr>
+                  <td class="text-center font-semibold">{champion.year}</td>
+                  <td class="text-center">{champion.name}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-600">
+          Note: Some years may be missing due to tournaments not being held or
+          records not being available.
+        </p>
+      </div>
+    </section>
+
     <section id="history-gallery" class="text-center">
-      <h1 class="text-4xl font-bold mb-4">A Pictorial History of Lebanese Chess</h1>
+      <h2 class="text-3xl font-bold mb-8">Historical Photographs</h2>
       <p class="text-lg mb-8 max-w-3xl mx-auto">
-        These images, scanned from newspaper clippings and personal collections, offer a glimpse into the rich history of chess in Lebanon. They feature past champions, pivotal tournaments, and moments that have shaped the national chess scene. This collection is a tribute to the players and organizers who have contributed to the legacy of Lebanese chess over the past 50 years.
+        These images, scanned from newspaper clippings and personal collections,
+        offer a glimpse into the rich history of chess in Lebanon. They feature
+        past champions, pivotal tournaments, and moments that have shaped the
+        national chess scene. This collection is a tribute to the players and
+        organizers who have contributed to the legacy of Lebanese chess over the
+        past 50 years.
       </p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {imageFiles.map((image, index) => (
-          <div class="card card-compact bg-base-100 shadow-xl overflow-hidden group">
-            <figure 
-              class="aspect-square relative cursor-pointer"
-              onclick={`modal_${index}.showModal()`}
-            >
-              <Image 
-                src={image.src} 
-                alt={image.alt} 
-                widths={[400, 800]}
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110" 
-              />
-              <div class="absolute inset-0 bg-transparent group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" fill="white" viewBox="0 0 32 32" class="opacity-0 group-hover:opacity-75 transition-opacity">
-                  <path d=" M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z "/>
-                </svg>
-              </div>
-            </figure>
-            <dialog id={`modal_${index}`} class="modal">
-              <div class="modal-box w-11/12 max-w-5xl">
-                <Picture 
-                  src={image.src} 
-                  alt={image.alt} 
-                  widths={[800, 1200, 2000]}
-                  sizes="(min-width: 1280px) 2000px, 100vw"
-                  class="w-full" 
+        {
+          imageFiles.map((image, index) => (
+            <div class="card card-compact bg-base-100 shadow-xl overflow-hidden group">
+              <figure
+                class="aspect-square relative cursor-pointer"
+                onclick={`modal_${index}.showModal()`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  widths={[400, 800]}
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                 />
-                <h3 class="font-bold text-lg mt-4">{image.alt}</h3>
-                <div class="modal-action">
-                  <form method="dialog">
-                    <button class="btn">Close</button>
-                  </form>
+                <div class="absolute inset-0 bg-transparent group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="48"
+                    width="48"
+                    fill="white"
+                    viewBox="0 0 32 32"
+                    class="opacity-0 group-hover:opacity-75 transition-opacity"
+                  >
+                    <path d=" M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z " />
+                  </svg>
                 </div>
-              </div>
-            </dialog>
-          </div>
-        ))}
+              </figure>
+              <dialog id={`modal_${index}`} class="modal">
+                <div class="modal-box w-11/12 max-w-5xl">
+                  <Picture
+                    src={image.src}
+                    alt={image.alt}
+                    widths={[800, 1200, 2000]}
+                    sizes="(min-width: 1280px) 2000px, 100vw"
+                    class="w-full"
+                  />
+                  <h3 class="font-bold text-lg mt-4">{image.alt}</h3>
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <button class="btn">Close</button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
+            </div>
+          ))
+        }
       </div>
       <p class="mt-12 text-lg">
-        This is just a small selection of our collection. We invite you to visit Keshmat Chess Center to see more historical scans, artifacts, and books from the history of Lebanese chess.
+        This is just a small selection of our collection. We invite you to visit
+        Keshmat Chess Center to see more historical scans, artifacts, and books
+        from the history of Lebanese chess.
       </p>
     </section>
   </main>
   <Footer />
-</Layout> 
+</Layout>
